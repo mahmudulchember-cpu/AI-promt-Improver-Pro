@@ -1,2 +1,4 @@
-[functions]
-directory = "netlify/functions"
+[build]
+  # This command replaces the placeholder in index.html with the actual API_KEY from Netlify environment variables
+  command = "sed -i s/__NETLIFY_API_KEY_PLACEHOLDER__/${API_KEY}/g index.html"
+  publish = "."

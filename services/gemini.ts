@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import { Category, Tone, OutputLength, Platform, ImprovedPromptResponse } from "../types";
 
@@ -9,12 +8,11 @@ export const improvePromptWithAI = async (
   platform: Platform,
   length: OutputLength
 ): Promise<ImprovedPromptResponse> => {
-  // Use a safe access pattern for process.env
-  const env = (typeof process !== 'undefined' && process.env) ? process.env : (window as any).process?.env;
-  const apiKey = env?.API_KEY;
+  // Access the key from the global process.env injected by Netlify build
+  const apiKey = process.env.API_KEY;
   
-  if (!apiKey) {
-    throw new Error("API Configuration Error: The API_KEY environment variable is not detected. Please ensure it is set in your Netlify dashboard.");
+  if (!apiKey || apiKey === "" || apiKey === "__NETLIFY_API_KEY_PLACEHOLDER__") {
+    throw new Error("System Configuration: API_KEY is missing. Please check your Netlify environment variables and ensure a fresh deployment has completed.");
   }
 
   const ai = new GoogleGenAI({ apiKey });
