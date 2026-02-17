@@ -1,4 +1,11 @@
+
 [build]
-  # This command replaces the placeholder in index.html with the actual API_KEY from Netlify environment variables
-  command = "sed -i s/__NETLIFY_API_KEY_PLACEHOLDER__/${API_KEY}/g index.html"
-  publish = "."
+  # Standard Vite build command
+  command = "npm run build"
+  # Vite outputs the production site to the 'dist' folder
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
