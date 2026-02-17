@@ -9,6 +9,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      // Netlify/Browser Compatibility: Define process.env if it doesn't exist 
+      // to prevent the app from crashing on start.
+      window.process = window.process || { env: {} };
+    </script>
     <style>
       body {
         font-family: 'Inter', sans-serif;
@@ -42,5 +47,7 @@
 </head>
   <body class="bg-gray-50 dark:bg-zinc-950 transition-colors duration-300">
     <div id="root"></div>
+    <!-- Explicitly load the entry point -->
+    <script type="module" src="index.tsx"></script>
   </body>
 </html>

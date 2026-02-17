@@ -9,12 +9,12 @@ export const improvePromptWithAI = async (
   platform: Platform,
   length: OutputLength
 ): Promise<ImprovedPromptResponse> => {
-  // Use the API key directly from the environment. 
-  // Ensure this is set in your Netlify/GitHub Secrets.
-  const apiKey = process.env.API_KEY;
+  // Use a safe access pattern for process.env
+  const env = (typeof process !== 'undefined' && process.env) ? process.env : (window as any).process?.env;
+  const apiKey = env?.API_KEY;
   
   if (!apiKey) {
-    throw new Error("System Configuration Error: API_KEY is missing from environment variables.");
+    throw new Error("API Configuration Error: The API_KEY environment variable is not detected. Please ensure it is set in your Netlify dashboard.");
   }
 
   const ai = new GoogleGenAI({ apiKey });
